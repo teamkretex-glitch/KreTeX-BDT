@@ -1,1 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KreTeX AI — Live Markets</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-name">KreTeX <b>AI</b></span>
+    </div>
+    <nav class="nav">
+      <a class="active" href="#">Markets</a>
+      <a href="#">Futures</a>
+      <a href="#">Signals</a>
+    </nav>
+    <div class="status" id="status" title="Connection status">
+      <span class="dot"></span><span id="status-text">Connecting…</span>
+    </div>
+  </header>
+
+  <section class="statbar">
+    <div class="sym">
+      <div class="sym-name" id="symbol-name">BTCUSD</div>
+      <div class="sym-sub">Perpetual · Delta Exchange India</div>
+    </div>
+    <div class="stat big"><span class="lbl">Last price</span><span class="val" id="last-price">—</span></div>
+    <div class="stat"><span class="lbl">24h change</span><span class="val" id="chg">—</span></div>
+    <div class="stat"><span class="lbl">Mark price</span><span class="val" id="mark">—</span></div>
+    <div class="stat"><span class="lbl">24h high</span><span class="val" id="high">—</span></div>
+    <div class="stat"><span class="lbl">24h low</span><span class="val" id="low">—</span></div>
+    <div class="stat"><span class="lbl">24h turnover</span><span class="val" id="vol">—</span></div>
+  </section>
+
+  <main class="layout">
+
+    <aside class="panel markets">
+      <div class="panel-title">Markets</div>
+      <ul id="market-list"></ul>
+    </aside>
+
+    <section class="panel chart-panel">
+      <div class="toolbar" id="tf-buttons">
+        <button data-tf="1m">1m</button>
+        <button data-tf="5m">5m</button>
+        <button data-tf="15m" class="active">15m</button>
+        <button data-tf="1h">1h</button>
+        <button data-tf="4h">4h</button>
+        <button data-tf="1d">1D</button>
+        <span class="toolbar-note">Time in IST</span>
+      </div>
+      <div id="chart"></div>
+    </section>
+
+    <aside class="side">
+      <div class="panel book">
+        <div class="panel-title">Order book</div>
+        <div class="book-head"><span>Price (USD)</span><span>Size</span></div>
+        <div id="asks" class="book-side"></div>
+        <div class="spread" id="spread">—</div>
+        <div id="bids" class="book-side"></div>
+      </div>
+
+      <div class="panel signal">
+        <div class="panel-title">AI signal</div>
+        <div class="signal-main" id="signal-main">—</div>
+        <div class="signal-meta" id="signal-meta">Waiting for candles…</div>
+        <div class="signal-note">EMA 9/21 aur RSI 14 par based indicator signal hai. Financial advice nahi.</div>
+      </div>
+    </aside>
+
+  </main>
+
+  <script src="https://unpkg.com/lightweight-charts@4.2.2/dist/lightweight-charts.standalone.production.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
