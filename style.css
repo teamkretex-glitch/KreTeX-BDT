@@ -1,1 +1,195 @@
+:root {
+  --bg: #0d0f12;
+  --panel: #13161b;
+  --panel-2: #181c22;
+  --line: #232830;
+  --text: #e8eaed;
+  --muted: #8a92a0;
+  --green: #2cb72c;
+  --green-soft: rgba(44, 183, 44, 0.14);
+  --red: #e5484d;
+  --red-soft: rgba(229, 72, 77, 0.14);
+  --accent: #feb37f;
+  --radius: 6px;
+}
 
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+ul { list-style: none; }
+
+.up { color: var(--green); }
+.down { color: var(--red); }
+
+:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+/* ---------- Top bar ---------- */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  height: 52px;
+  padding: 0 18px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; letter-spacing: 0.2px; }
+.brand b { color: var(--green); font-weight: 700; }
+.brand-mark {
+  width: 20px; height: 20px;
+  background: var(--green);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.nav { display: flex; gap: 22px; }
+.nav a { color: var(--muted); text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; }
+.nav a:hover { color: var(--text); }
+.nav a.active { color: var(--text); border-bottom-color: var(--green); }
+
+.status { margin-left: auto; display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; }
+.status .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+.status.live .dot { background: var(--green); box-shadow: 0 0 0 3px var(--green-soft); }
+.status.error .dot { background: var(--red); box-shadow: 0 0 0 3px var(--red-soft); }
+
+/* ---------- Stat bar ---------- */
+.statbar {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  padding: 10px 18px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.sym-name { font-size: 18px; font-weight: 700; }
+.sym-sub { color: var(--muted); font-size: 11px; }
+.stat { display: flex; flex-direction: column; gap: 2px; }
+.stat .lbl { color: var(--muted); font-size: 11px; }
+.stat .val { font-size: 13px; font-variant-numeric: tabular-nums; }
+.stat.big .val { font-size: 20px; font-weight: 700; }
+
+/* ---------- Layout ---------- */
+.layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr) 300px;
+  gap: 1px;
+  background: var(--line);
+  min-height: 0;
+}
+
+.panel { background: var(--panel); min-width: 0; }
+.panel-title {
+  padding: 10px 14px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--line);
+}
+
+/* ---------- Markets ---------- */
+.markets li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+  border-left: 3px solid transparent;
+}
+.markets li:hover { background: var(--panel-2); }
+.markets li.active { background: var(--panel-2); border-left-color: var(--green); }
+.markets .m-sym { font-weight: 600; }
+.markets .m-price { text-align: right; font-variant-numeric: tabular-nums; }
+.markets .m-sub { color: var(--muted); font-size: 11px; }
+.markets .m-chg { text-align: right; font-size: 11px; font-variant-numeric: tabular-nums; }
+
+/* ---------- Chart ---------- */
+.chart-panel { display: flex; flex-direction: column; }
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line);
+}
+.toolbar button {
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  color: var(--muted);
+}
+.toolbar button:hover { color: var(--text); background: var(--panel-2); }
+.toolbar button.active { color: var(--green); background: var(--green-soft); }
+.toolbar-note { margin-left: auto; color: var(--muted); font-size: 11px; }
+#chart { flex: 1; min-height: 420px; }
+
+/* ---------- Side (book + signal) ---------- */
+.side { display: flex; flex-direction: column; gap: 1px; background: var(--line); }
+
+.book-head {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 14px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.book-side { display: flex; flex-direction: column; }
+.row {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 14px;
+  font-variant-numeric: tabular-nums;
+}
+.row .bar { position: absolute; top: 0; right: 0; bottom: 0; z-index: 0; }
+.row span { position: relative; z-index: 1; }
+.row.ask .bar { background: var(--red-soft); }
+.row.bid .bar { background: var(--green-soft); }
+.row.ask .p { color: var(--red); }
+.row.bid .p { color: var(--green); }
+.spread {
+  padding: 8px 14px;
+  margin: 4px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.signal { padding-bottom: 14px; }
+.signal-main { padding: 14px 14px 4px; font-size: 20px; font-weight: 700; }
+.signal-meta { padding: 0 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.signal-note { padding: 10px 14px 0; color: var(--muted); font-size: 11px; }
+
+/* ---------- Flash on price tick ---------- */
+@keyframes flash-up { from { background: var(--green-soft); } to { background: transparent; } }
+@keyframes flash-down { from { background: var(--red-soft); } to { background: transparent; } }
+.flash-up { animation: flash-up 0.6s ease-out; }
+.flash-down { animation: flash-down 0.6s ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  .flash-up, .flash-down { animation: none; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+  .layout { grid-template-columns: minmax(0, 1fr); }
+  .markets ul { display: flex; overflow-x: auto; }
+  .markets li { min-width: 170px; border-bottom: 0; border-left: 0; border-bottom: 3px solid transparent; }
+  .markets li.active { border-bottom-color: var(--green); }
+  .nav { display: none; }
+  #chart { min-height: 340px; }
+  }
